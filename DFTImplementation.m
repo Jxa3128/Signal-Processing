@@ -1,4 +1,5 @@
 % Jorge Avila - mavID: 1001543128
+% CSE 3313 - Signal Processing
 
 clc
 clear
@@ -21,8 +22,6 @@ sampleSize = 1028;
 n = -513:514;
 n = n';
 
-fprintf('Testing: The first %f\n',numberArray(15));
-
 % really do not care what the x & y labels are.
 % plot x[n]
 subplot(4,4,1);
@@ -38,9 +37,19 @@ N = sampleSize;
 k = 1;
 
 % summation of X_1(k)
-for n_0 = 0:N-1
-    expArgument = ((-1j*2*pi*n_0*k)/N);
-    X1_k = (numberArray .* exp(expArgument));
+% for n_0 = 0:N-1
+%     expArgument = ((-1j*2*pi*n_0*k)/N);
+%     X1_k = (numberArray .* exp(expArgument));
+% end
+
+X1_k = zeros;
+for k = 0:N-1
+    temp_sum = 0;
+  for n_0 = 0:N-1
+      expArgument = ((-1j*2*pi*n_0*k)/N);
+      temp_sum = temp_sum + (numberArray(n_0+1) * exp(expArgument));
+  end
+   X1_k(k+1) = temp_sum;
 end
 
 % plotting the Magnitude of X1_k
@@ -74,4 +83,7 @@ title('Phase of X_2(k)');
 xlabel('Phase');
 ylabel('n Values');
 
+% Compare the magnitude and phase plots for X1
+% and for X2 They should be the same if you
+% implemented the DFT correctly in step 2.
 
